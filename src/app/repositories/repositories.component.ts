@@ -8,47 +8,53 @@ import { Component, OnInit } from '@angular/core';
 
 export class RepositoriesComponent implements OnInit {
 
-  repositories : any = [];
+  repositories: any = [];
 
-  repository : IRepository;
+  repository: IRepository;
+  newRepository: IRepository = {name: '', description: ''};
 
   constructor() { }
 
   ngOnInit() {
     this.repository = {
-      name: 'Angular code for CF', 
+      name: 'Angular code for CF',
       description: 'Proyecto demo de CF y Agular'
     };
 
     setTimeout(() => {
       this.repositories = [
         {
-          name: 'Angular code for CF', 
+          name: 'Angular code for CF',
           description: 'Proyecto demo de CF y Agular'
         },
         {
-          name: 'Bootstrap', 
+          name: 'Bootstrap',
           description: 'Frontend Framework'
         },
         {
-          name: 'PHP Ecommerce', 
+          name: 'PHP Ecommerce',
           description: 'Codigo del curso Ecommerce'
         },
         {
-          name: 'Ruby code', 
+          name: 'Ruby code',
           description: 'Codigo con los ejemplos del curso'
         }
       ];
-    }, 3000)
+    }, 3000);
   }
 
   setMainRepository(repository) {
     this.repository = repository;
   }
 
+  addNewRepo(){
+    this.repositories.unshift(this.newRepository);
+    this.newRepository = {name: '', description: ''};
+  }
+
 }
 
 interface IRepository {
   name: String,
-  description: String
+  description: String,
 }
