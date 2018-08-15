@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RepositoriesService } from './repositories.service';
 
 @Component({
   selector: 'app-repositories',
@@ -10,37 +11,17 @@ export class RepositoriesComponent implements OnInit {
 
   repositories: any = [];
 
-  repository: IRepository;
+  repository: IRepository = {name: '', description: ''};
   newRepository: IRepository = {name: '', description: ''};
 
-  constructor() { }
+  constructor(private repoService : RepositoriesService) { }
 
   ngOnInit() {
-    this.repository = {
-      name: 'Angular code for CF',
-      description: 'Proyecto demo de CF y Agular'
-    };
+    this.repoService.getRepos().subscribe( (data) => {
+      this.repositories = data.json();
 
-    setTimeout(() => {
-      this.repositories = [
-        {
-          name: 'Angular code for CF',
-          description: 'Proyecto demo de CF y Agular'
-        },
-        {
-          name: 'Bootstrap',
-          description: 'Frontend Framework'
-        },
-        {
-          name: 'PHP Ecommerce',
-          description: 'Codigo del curso Ecommerce'
-        },
-        {
-          name: 'Ruby code',
-          description: 'Codigo con los ejemplos del curso'
-        }
-      ];
-    }, 3000);
+      this.repository = this.repositories[0];
+    })
   }
 
   setMainRepository(repository) {
